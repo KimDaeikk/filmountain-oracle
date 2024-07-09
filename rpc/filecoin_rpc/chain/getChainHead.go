@@ -8,16 +8,16 @@ import (
 	"github.com/pkg/errors"
 )
 
-func GetChainHead() (*types.Tipset, error) {
-	jsonRpcResponse, err := rpc.ExecuteRpcCall("ChainHead")
+func GetChainHead() (*types.ChainHead, error) {
+	jsonRpcResponse, err := rpc.ExecuteRpcCall("ChainHead", nil)
 	if err != nil {
 		errors.Wrap(err, "GetChainHead")
 	}
 
-	var tipset types.Tipset
-	if err := json.Unmarshal(jsonRpcResponse.Result, &tipset); err != nil {
+	var chainHead types.ChainHead
+	if err := json.Unmarshal(jsonRpcResponse.Result, &chainHead); err != nil {
 		return nil, err
 	}
 
-	return &tipset, nil
+	return &chainHead, nil
 }

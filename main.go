@@ -16,25 +16,6 @@ func init() {
 	}
 }
 
-// SectorInfo 구조체
-type SectorInfo struct {
-	SectorNumber          int               `json:"SectorNumber"`
-	SealProof             int               `json:"SealProof"`
-	SealedCID             map[string]string `json:"SealedCID"`
-	DealIDs               []int             `json:"DealIDs"`
-	Activation            int               `json:"Activation"`
-	Expiration            int               `json:"Expiration"`
-	DealWeight            string            `json:"DealWeight"`
-	VerifiedDealWeight    string            `json:"VerifiedDealWeight"`
-	InitialPledge         string            `json:"InitialPledge"`
-	ExpectedDayReward     string            `json:"ExpectedDayReward"`
-	ExpectedStoragePledge string            `json:"ExpectedStoragePledge"`
-	ReplacedSectorAge     int               `json:"ReplacedSectorAge"`
-	ReplacedDayReward     string            `json:"ReplacedDayReward"`
-	SectorKeyCID          map[string]string `json:"SectorKeyCID"`
-	SimpleQAPower         bool              `json:"SimpleQAPower"`
-}
-
 func main() {
 	// 전역변수 리소스 정리
 	defer types.CleanUp()
@@ -45,7 +26,7 @@ func main() {
 		log.Printf("Error getting latest Tipset: %s\n", err)
 	}
 
-	fmt.Printf("%+v\n", tipset.Cids)
+	fmt.Printf("%+v\n", tipset)
 	// performStateMinerSectorsCall(tipset)
 }
 
@@ -116,11 +97,4 @@ func main() {
 // 		fmt.Printf("Simple QA Power: %v\n", sector.SimpleQAPower)
 // 		fmt.Println("-----------------------------------------------------")
 // 	}
-// }
-
-// func attoFILToFIL(attoFIL string) string {
-// 	value := new(big.Int)
-// 	value.SetString(attoFIL, 10) // attoFIL 값 파싱
-// 	fil := new(big.Float).Quo(new(big.Float).SetInt(value), big.NewFloat(1e18))
-// 	return fil.Text('f', 18) // 18 소수점 자릿수로 출력
 // }

@@ -10,8 +10,8 @@ import (
 	"github.com/KimDaeikk/filmountain-oracle/types"
 )
 
-func ExecuteRpcCall(_method string) (types.JSONRPCResponse, error) {
-	requestBody, err := generateRequestBody(_method)
+func ExecuteRpcCall(_method string, _parameters []interface{}) (types.JSONRPCResponse, error) {
+	requestBody, err := generateRequestBody(_method, _parameters)
 	if err != nil {
 		return types.JSONRPCResponse{}, errors.Wrap(err, "ExecuteRpcCall")
 	}
@@ -31,11 +31,11 @@ func ExecuteRpcCall(_method string) (types.JSONRPCResponse, error) {
 	return jsonRPCResponse, nil
 }
 
-func generateRequestBody(_method string) ([]byte, error) {
+func generateRequestBody(_method string, _parameters []interface{}) ([]byte, error) {
 	body, err := json.Marshal(types.JSONRPCRequest{
 		Jsonrpc: "2.0",
 		Method:  "Filecoin." + _method,
-		Params:  []interface{}{},
+		Params:  _parameters,
 		ID:      1,
 	})
 	if err != nil {
